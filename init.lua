@@ -1,4 +1,5 @@
  --[[
+ -- Harpoon, UndoTree, Fugitive (git integration
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -40,7 +41,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-print("Toplevel init.lua")
 require("liam")
 
 
@@ -211,6 +211,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
+  {'ThePrimeagen/vim-be-good'};
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
@@ -453,10 +454,10 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
+     clangd = {},
   -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
+     pyright = {},
+     rust_analyzer = {},
   -- tsserver = {},
 
   lua_ls = {
