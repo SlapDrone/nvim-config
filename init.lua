@@ -41,10 +41,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-require("liam")
-
-
-
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -81,6 +77,7 @@ require('lazy').setup({
   {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    -- 'linux-cultist/venv-selector.nvim',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
       { 'williamboman/mason.nvim', config = true },
@@ -210,14 +207,18 @@ require('lazy').setup({
   --       Uncomment any of the lines below to enable them.
   -- require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
-
+  -- TODO: Relative line numbers?
+  -- Detect Poetry envs
+  -- {'linux-cultist/venv-selector.nvim'},
+  -- config done now in liam/venv.lua
+  -- Game to practice keybinds
   {'ThePrimeagen/vim-be-good'};
   -- NOTE: The import below automatically adds your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    You can use this folder to prevent any conflicts with this init.lua if you're interested in keeping
   --    up-to-date with whatever is in the kickstart repo.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  --{ import = 'custom.plugins' },
+  { import = 'liam.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -454,12 +455,19 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-     clangd = {},
+   clangd = {},
   -- gopls = {},
-     pyright = {},
-     rust_analyzer = {},
+   rust_analyzer = {},
   -- tsserver = {},
-
+  pyright = {
+    python = {
+      analysis = {
+        autoSearchPaths = true,
+        useLibraryCodeForTypes = true,
+        typeCheckingMode = "basic",
+      },
+    },
+  },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -469,7 +477,7 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+-- require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -539,6 +547,13 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+
+vim.cmd([[autocmd BufEnter *.py silent! !poetry env use python]])
+-- my own
+-- personal
+-- folder
+require("liam")
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
