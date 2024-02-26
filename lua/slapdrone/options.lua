@@ -22,6 +22,8 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap('n', '<Leader>o', 'o<Esc>0"_D', {noremap = true, silent = true})
 keymap('n', '<Leader>O', 'O<Esc>0"_D', {noremap = true, silent = true})
 
+keymap('n', '<Leader>m', ':MarkdownPreview<CR>', opts)
+
 pcall(function()
   require("colorizer").setup(
     { "css", "scss", "html", "lua", "json", "toml", "yaml", },

@@ -1,4 +1,4 @@
-reload("liam.options")
+reload("slapdrone.options")
 -- markdown editing
 require("lvim.lsp.manager").setup("marksman")
 -- install plugins
@@ -10,6 +10,7 @@ lvim.plugins = {
   "nvim-neotest/neotest-python",
   "simrat39/rust-tools.nvim",
   "AckslD/nvim-trevJ.lua",
+  "skywind3000/asyncrun.vim",
   -- {
   --   "iamcco/markdown-preview.nvim",
   --   build = "cd app && npm install",
@@ -18,8 +19,17 @@ lvim.plugins = {
   --     vim.g.mkdp_auto_start = 1
   --   end,
   -- },
+  "conornewton/vim-pandoc-markdown-preview",
+  {
+    "iamcco/markdown-preview.nvim",
+    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    ft = { "markdown" },
+    build = function() vim.fn["mkdp#util#install"]() end,
+  },
   {"ellisonleao/glow.nvim", config = function() require("glow").setup() end},
   {"AckslD/nvim-trevJ.lua", config = function() require("trevj").setup() end},
+  {"tpope/vim-obsession"},  -- for managing sessions
+  {"dhruvasagar/vim-prosession"}, -- extends vim-obsession
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
