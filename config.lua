@@ -1,13 +1,37 @@
 reload("slapdrone.options")
 -- markdown editing
 require("lvim.lsp.manager").setup("marksman")
+
+-- clangd
+--
+-- Ensure clangd is not skipped
+lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
+ return server ~= "clangd"
+end, lvim.lsp.automatic_configuration.skipped_servers)
+
+-- Configure clangd
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "clangd" })
+local capabilities = require("lvim.lsp").common_capabilities()
+local opts = {
+ cmd = {
+   "clangd",
+   "--background-index",
+   "--suggest-missing-includes",
+   "--clang-tidy",
+   "--header-insertion=iwyu",
+ },
+ capabilities = capabilities,
+}
+require("lvim.lsp.manager").setup("clangd", opts)
+
+
 -- install plugins
 lvim.plugins = {
   "ChristianChiarulli/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
-  "nvim-neotest/neotest",
-  "nvim-neotest/neotest-python",
+  -- "nvim-neotest/neotest",
+  -- "nvim-neotest/neotest-python",
   "simrat39/rust-tools.nvim",
   "AckslD/nvim-trevJ.lua",
   "skywind3000/asyncrun.vim",
@@ -30,6 +54,12 @@ lvim.plugins = {
   {"AckslD/nvim-trevJ.lua", config = function() require("trevj").setup() end},
   {"tpope/vim-obsession"},  -- for managing sessions
   {"dhruvasagar/vim-prosession"}, -- extends vim-obsession
+  -- typst
+  {
+    'kaarmu/typst.vim',
+    ft = 'typst',
+    lazy=false,
+  },
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
@@ -207,6 +237,15 @@ lvim.plugins = {
   {
     "p00f/clangd_extensions.nvim",
   },
+  {
+    "epwalsh/obsidian.nvim",
+    version="*",
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim"
+    }
+  }
 }
 
 -- automatically install python syntax highlighting
@@ -222,8 +261,8 @@ lvim.builtin.treesitter.ensure_installed = {
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup { { name = "black" }, }
-lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.py" }
+-- lvim.format_on_save.enabled = true
+-- lvim.format_on_save.pattern = { "*.py" }
 
 -- setup linting
 local linters = require "lvim.lsp.null-ls.linters"
@@ -237,30 +276,30 @@ pcall(function()
 end)
 
 -- setup testing
-require("neotest").setup({
-  adapters = {
-    require("neotest-python")({
-      -- Extra arguments for nvim-dap configuration
-      -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
-      dap = {
-        justMyCode = false,
-        console = "integratedTerminal",
-      },
-      args = { "--log-level", "DEBUG", "--quiet" },
-      runner = "pytest",
-    })
-  }
-})
+-- require("neotest").setup({
+--   adapters = {
+--     require("neotest-python")({
+--       -- Extra arguments for nvim-dap configuration
+--       -- See https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for values
+--       dap = {
+--         justMyCode = false,
+--         console = "integratedTerminal",
+--       },
+--       args = { "--log-level", "DEBUG", "--quiet" },
+--       runner = "pytest",
+--     })
+--   }
+-- })
 
-lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>",
-  "Test Method" }
-lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
-  "Test Method DAP" }
-lvim.builtin.which_key.mappings["df"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
-lvim.builtin.which_key.mappings["dF"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
-lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
+-- lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>",
+--   "Test Method" }
+-- lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
+--   "Test Method DAP" }
+-- lvim.builtin.which_key.mappings["df"] = {
+--   "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
+-- lvim.builtin.which_key.mappings["dF"] = {
+--   "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
+-- lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
 
 -- binding for switching
 lvim.builtin.which_key.mappings["C"] = {
@@ -493,3 +532,4 @@ lvim.builtin.dap.on_config_done = function(dap)
 
   dap.configurations.c = dap.configurations.cpp
 end
+
