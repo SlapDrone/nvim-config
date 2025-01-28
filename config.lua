@@ -53,7 +53,12 @@ lvim.plugins = {
   {"ellisonleao/glow.nvim", config = function() require("glow").setup() end},
   {"AckslD/nvim-trevJ.lua", config = function() require("trevj").setup() end},
   {"tpope/vim-obsession"},  -- for managing sessions
-  {"dhruvasagar/vim-prosession"}, -- extends vim-obsession
+  {
+    "dhruvasagar/vim-prosession",
+    dependencies = {
+      "tpope/vim-obsession",
+    },
+  }, -- extends vim-obsession
   -- typst
   {
     'kaarmu/typst.vim',
