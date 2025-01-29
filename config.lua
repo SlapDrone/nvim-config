@@ -539,5 +539,5 @@ lvim.builtin.dap.on_config_done = function(dap)
 end
 
 -- obsidian
-
+vim.opt.conceallevel = 2
 require("plugins.obsidian")
