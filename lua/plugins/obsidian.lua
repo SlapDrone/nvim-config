@@ -105,3 +105,4 @@ require("obsidian").setup({
     tags = "",
   }
 })
+

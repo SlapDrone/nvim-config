@@ -1,4 +1,4 @@
-reload("slapdrone.options")
+require("slapdrone.options")
 -- markdown editing
 require("lvim.lsp.manager").setup("marksman")
 
@@ -258,6 +258,7 @@ lvim.plugins = {
       "nvim-lua/plenary.nvim"
     }
   },
+  'folke/zen-mode.nvim',
   {
     "folke/twilight.nvim",
     ft = "markdown",
@@ -554,3 +555,5 @@ end
 -- obsidian
 vim.opt.conceallevel = 2
 require("plugins.obsidian")
+require('plugins.zenmode')
+

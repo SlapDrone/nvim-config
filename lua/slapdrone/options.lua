@@ -26,6 +26,11 @@ keymap('n', '<Leader>O', 'O<Esc>0"_D', {noremap = true, silent = true})
 
 keymap('n', '<Leader>m', ':MarkdownPreview<CR>', opts)
 
+-- twilight
+keymap("n", "<Leader>tt", ":Twilight<CR>", {noremap=false})
+-- zenmode
+keymap("n", "<Leader>zz", ":ZenMode<CR>", {noremap=false})
+
 pcall(function()
   require("colorizer").setup(
     { "css", "scss", "html", "lua", "json", "toml", "yaml", },

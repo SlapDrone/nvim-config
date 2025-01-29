@@ -59,5 +59,6 @@
   "vim-obsession": { "branch": "master", "commit": "ed9dfc7c2cc917ace8b24f4f9f80a91e05614b63" },
   "vim-pandoc-markdown-preview": { "branch": "master", "commit": "59f544e2effb100c051b4e303b10653017ffb0eb" },
   "vim-prosession": { "branch": "master", "commit": "4b8323d4e9b74afe9132a34b2d7ea6cfa9461550" },
-  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
+  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
+  "zen-mode.nvim": { "branch": "main", "commit": "863f150ca321b3dd8aa1a2b69b5f411a220e144f" }
 }
