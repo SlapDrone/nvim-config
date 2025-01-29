@@ -3,6 +3,7 @@ vim.opt.relativenumber = true
 vim.opt.timeoutlen = 333
 vim.opt.showcmd = true
 vim.opt.clipboard = "unnamedplus"
+vim.opt_local.conceallevel = 2
 lvim.transparent_window = true
 lvim.builtin.treesitter.ensure_installed = true
 -- Keymaps

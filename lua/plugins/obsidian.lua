@@ -1,16 +1,26 @@
 require("obsidian").setup({
+  new_notes_location = "current_dir",
   workspaces = {
     {
       name = "lrm",
       path = "~/obsidian/lrm",
     }
   },
+  wiki_link_func = function(opts)
+    if opts.id == nil then
+      return string.format("[[%s]]", opts.label)
+    elseif opts.label ~= opts.id then
+      return string.format("[[%s|%s]]", opts.id, opts.label)
+    else
+      return string.format("[[%s]]", opts.id)
+    end
+  end,
   completion = {
     nvim_cmp = true,
     --trigger compl at 2 char
     min_chars = 2,
-    new_notes_location = "current_dir",
-    prepend_note_id = true,
+    -- new_notes_location = "current_dir",
+    -- prepend_note_id = true,
   },
   mappings = {
     -- "obsidian follow"
