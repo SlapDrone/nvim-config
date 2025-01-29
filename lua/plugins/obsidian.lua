@@ -24,7 +24,8 @@ local function open_in_obsidian()
 end
 
 require("obsidian").setup({
-  new_notes_location = "current_dir",
+  notes_subdir = "0_inbox",
+  new_notes_location = "notes_subdir",
   workspaces = {
     {
       name = "lrm",
