@@ -44,6 +44,13 @@ lvim.plugins = {
   --   end,
   -- },
   "conornewton/vim-pandoc-markdown-preview",
+  -- {
+  --   'MeanderingProgrammer/markdown.nvim',
+  --   main = "render-markdown",
+  --   opts = {},
+  --   name = 'render-markdown', -- Only needed if you have another plugin named markdown.nvim
+  --   dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you use the mini.nvim suite
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -250,17 +257,23 @@ lvim.plugins = {
     dependencies = {
       "nvim-lua/plenary.nvim"
     }
-  }
+  },
+  {
+    "folke/twilight.nvim",
+    ft = "markdown",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
 }
 
 -- automatically install python syntax highlighting
 lvim.builtin.treesitter.ensure_installed = {
-  "python",
-  "lua",
-  "rust",
-  "toml",
-  "cpp",
-  "c",
+    'go', 'lua', 'python', 'rust', 'typescript', 'regex', 
+    'bash', 'markdown', 'markdown_inline', 'kdl', 'sql', 'org', 'terraform',
+    'html', 'css', 'javascript', 'yaml', 'json', 'toml', 'cpp', 'c'
 }
 
 -- setup formatting
