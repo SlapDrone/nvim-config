@@ -1,3 +1,28 @@
+local obsidian = require("obsidian")
+
+-- Function to open current note in Obsidian
+local function open_in_obsidian()
+  -- Get the current buffer's file path
+  local current_file = vim.fn.expand('%:p')
+  
+  -- Check the operating system
+  local is_mac = vim.fn.has('mac') == 1
+  local is_linux = vim.fn.has('unix') == 1 and not is_mac
+  
+  if is_mac then
+    -- macOS command using obsidian:// protocol
+    local cmd = string.format('open "obsidian://open?path=%s"', vim.fn.escape(current_file, ' ()[]'))
+    vim.fn.system(cmd)
+  elseif is_linux then
+    -- Linux command using xdg-open
+    local cmd = string.format('xdg-open "obsidian://open?path=%s"', vim.fn.escape(current_file, ' ()[]'))
+    vim.fn.system(cmd)
+  else
+    -- Windows or other OS
+    vim.notify("Opening in Obsidian is not configured for this operating system", vim.log.levels.WARN)
+  end
+end
+
 require("obsidian").setup({
   new_notes_location = "current_dir",
   workspaces = {
@@ -47,6 +72,13 @@ require("obsidian").setup({
     ["<leader>od"] = {
       action = function()
         return require("obsidian").util.toggle_checkbox()
+      end,
+      opts = { buffer = true },
+    },
+    -- open obsidian on current note
+    ["<leader>oo"] = {
+      action = function()
+        open_in_obsidian()
       end,
       opts = { buffer = true },
     },
