@@ -223,22 +223,22 @@ lvim.plugins = {
     })
     end,
   },
-  {
-    "saecki/crates.nvim",
-    version = "v0.3.0",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require("crates").setup {
-        null_ls = {
-          enabled = true,
-          name = "crates.nvim",
-        },
-        popup = {
-          border = "rounded",
-        },
-      }
-    end,
-  },
+  -- {
+  --   "saecki/crates.nvim",
+  --   version = "v0.3.0",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   config = function()
+  --     require("crates").setup {
+  --       null_ls = {
+  --         enabled = true,
+  --         name = "crates.nvim",
+  --       },
+  --       popup = {
+  --         border = "rounded",
+  --       },
+  --     }
+  --   end,
+  -- },
   {
     "j-hui/fidget.nvim",
     version = 'legacy',
@@ -268,6 +268,12 @@ lvim.plugins = {
       -- refer to the configuration section below
     }
   },
+  {
+      "andrewferrier/wrapping.nvim",
+      config = function()
+          require("wrapping").setup()
+      end
+  },
 }
 
 -- automatically install python syntax highlighting
@@ -278,14 +284,14 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 -- setup formatting
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup { { name = "black" }, }
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup { { name = "black" }, }
 -- lvim.format_on_save.enabled = true
 -- lvim.format_on_save.pattern = { "*.py" }
 
 -- setup linting
-local linters = require "lvim.lsp.null-ls.linters"
-linters.setup { { command = "flake8", filetypes = { "python" } } }
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup { { command = "flake8", filetypes = { "python" } } }
 
 -- setup debug adapter
 lvim.builtin.dap.active = true
@@ -556,4 +562,4 @@ end
 vim.opt.conceallevel = 2
 require("plugins.obsidian")
 require('plugins.zenmode')
-
+vim.g.null_ls_disable = true
