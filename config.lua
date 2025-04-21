@@ -23,7 +23,7 @@ local opts = {
  capabilities = capabilities,
 }
 require("lvim.lsp.manager").setup("clangd", opts)
-
+require("lvim.lsp.manager").setup("pyright")                                                                                                                                         
 
 -- install plugins
 lvim.plugins = {
