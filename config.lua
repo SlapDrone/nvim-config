@@ -30,6 +30,7 @@ lvim.plugins = {
   "ChristianChiarulli/swenv.nvim",
   "stevearc/dressing.nvim",
   "mfussenegger/nvim-dap-python",
+  "sindrets/diffview.nvim",
   -- "nvim-neotest/neotest",
   -- "nvim-neotest/neotest-python",
   "simrat39/rust-tools.nvim",
@@ -239,13 +240,13 @@ lvim.plugins = {
   --     }
   --   end,
   -- },
-  {
-    "j-hui/fidget.nvim",
-    version = 'legacy',
-    config = function()
-      require("fidget").setup()
-    end,
-  },
+  -- {
+  --   "j-hui/fidget.nvim",
+  --   version = 'legacy',
+  --   config = function()
+  --     require("fidget").setup()
+  --   end,
+  -- },
   {
     "p00f/clangd_extensions.nvim",
   },
