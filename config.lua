@@ -1,3 +1,8 @@
+-- Compatibility: none-ls expects vim.lsp._request_name_to_capability, which moved in Neovim 0.11.
+if vim.lsp and not vim.lsp._request_name_to_capability and vim.lsp.protocol then
+  vim.lsp._request_name_to_capability = vim.lsp.protocol._request_name_to_capability
+end
+
 require("slapdrone.options")
 -- markdown editing
 require("lvim.lsp.manager").setup("marksman")
