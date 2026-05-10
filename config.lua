@@ -270,10 +270,39 @@ lvim.plugins = {
 
 -- automatically install python syntax highlighting
 lvim.builtin.treesitter.ensure_installed = {
-    'go', 'lua', 'python', 'rust', 'typescript', 'regex', 
+    'go', 'lua', 'python', 'rust', 'typescript', 'regex',
     'bash', 'markdown', 'markdown_inline', 'kdl', 'sql', 'org', 'terraform',
     'html', 'css', 'javascript', 'yaml', 'json', 'toml', 'cpp', 'c'
 }
+
+local function extend_unique(list, items)
+  local result = vim.deepcopy(list or {})
+  local seen = {}
+
+  for _, item in ipairs(result) do
+    seen[item] = true
+  end
+
+  for _, item in ipairs(items) do
+    if not seen[item] then
+      table.insert(result, item)
+      seen[item] = true
+    end
+  end
+
+  return result
+end
+
+-- markdown can trip a nil-node bug in nvim-treesitter's indent logic, and
+-- indent-blankline calls that code directly on blank lines.
+lvim.builtin.treesitter.indent.disable = extend_unique(
+  lvim.builtin.treesitter.indent.disable,
+  { "markdown" }
+)
+lvim.builtin.indentlines.options.filetype_exclude = extend_unique(
+  lvim.builtin.indentlines.options.filetype_exclude,
+  { "markdown" }
+)
 
 -- setup formatting
 -- local formatters = require "lvim.lsp.null-ls.formatters"
